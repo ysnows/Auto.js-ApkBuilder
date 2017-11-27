@@ -3,30 +3,16 @@ package com.stardust.autojs.apkbuilder.sample;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
 import com.stardust.autojs.apkbuilder.ApkBuilder;
-import com.stardust.autojs.apkbuilder.ApkPackager;
-import com.stardust.autojs.apkbuilder.ManifestEditor;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.Map;
 
-import cn.wjdiankong.main.ParserChunkUtils;
-import cn.wjdiankong.main.XmlEditor;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,7 +47,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void buildApk() throws Exception {
         String path = mFilePath.getText().toString();
-        File tmp = new File(getCacheDir(), "ApkBuild/");
+        int lastIndexOf = path.lastIndexOf("/");
+        String lastStr = path.substring(0, lastIndexOf + 1);
+
+        File tmp = new File(lastStr, "ApkBuild/");
         tmp.mkdirs();
         build(tmp, new File(path));
     }
